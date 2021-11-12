@@ -15,7 +15,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       // 39333 to 40343 (39346) 40125 40212
-      product_id: 40212
+      product_id: 40125
     }
     this.handleProductChange = this.handleProductChange.bind(this);
   }
