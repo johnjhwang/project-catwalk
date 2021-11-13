@@ -1,12 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import $ from 'jquery';
-import axios from 'axios';
-import styled from 'styled-components';
-import handler from '../Shared/reviewhandler.js';
-import Reviews from './Reviews.jsx';
-import Ratings from './Ratings.jsx';
-
+import React from "react";
+import ReactDOM from "react-dom";
+import $ from "jquery";
+import axios from "axios";
+import styled from "styled-components";
+import handler from "../Shared/reviewhandler.js";
+import Reviews from "./Reviews.jsx";
+import Ratings from "./Ratings.jsx";
 
 class Overview extends React.Component {
   constructor(props) {
@@ -15,9 +14,9 @@ class Overview extends React.Component {
       product_id: this.props.product_id,
       reviewsData: {},
       reviewsMetaData: {},
-      name: '',
+      name: "",
       filters: [],
-    }
+    };
     this.getReviews = this.getReviews.bind(this);
     this.getReviewsMeta = this.getReviewsMeta.bind(this);
     this.updateReviews = this.updateReviews.bind(this);
@@ -37,26 +36,25 @@ class Overview extends React.Component {
       this.getReviews();
       this.getReviewsMeta();
       this.getProductName();
-
     }
   }
 
-  getReviews(sort = 'relevant') {
+  getReviews(sort = "relevant") {
     handler.get(this.state.product_id, sort, (responseData) => {
-      console.log('client responseData >>>>', responseData);
+      console.log("client responseData >>>>", responseData);
       this.setState({ reviewsData: responseData }, () => {
-        console.log('this.state.reviewsData >>>', this.state.reviewsData);
+        console.log("this.state.reviewsData >>>", this.state.reviewsData);
       });
-    })
+    });
   }
 
   getReviewsMeta() {
     handler.getMeta(this.state.product_id, (responseData) => {
-      console.log('client metaData >>>>', responseData);
+      console.log("client metaData >>>>", responseData);
       this.setState({ reviewsMetaData: responseData }, () => {
-        console.log('reviewsMetaData in state >>>', this.state.reviewsMetaData);
+        console.log("reviewsMetaData in state >>>", this.state.reviewsMetaData);
       });
-    })
+    });
   }
 
   updateReviews() {
@@ -65,9 +63,10 @@ class Overview extends React.Component {
   }
 
   getProductName() {
-    axios.get(`/products/${this.props.product_id}`)
+    axios
+      .get(`/products/${this.props.product_id}`)
       .then((responseData) => {
-        console.log('result', responseData.data.name);
+        console.log("result", responseData.data.name);
         this.setState({
           name: responseData.data.name,
         });
@@ -78,12 +77,23 @@ class Overview extends React.Component {
   }
 
   updateFilters(e) {
-    let clickedRating = e.target.getAttribute('value');
+    let clickedRating = e.target.getAttribute("value");
     let i = this.state.filters.indexOf(clickedRating);
     if (i === -1) {
-      this.setState((prevState) => ({ filters: [...prevState.filters, clickedRating] }), () => console.log('filters >>>', this.state.filters));
+      this.setState(
+        (prevState) => ({ filters: [...prevState.filters, clickedRating] }),
+        () => console.log("filters >>>", this.state.filters)
+      );
     } else {
-      this.setState((prevState) => ({ filters: [...prevState.filters.slice(0, i), ...prevState.filters.slice(i + 1)]}), () => console.log('filters >>>', this.state.filters));
+      this.setState(
+        (prevState) => ({
+          filters: [
+            ...prevState.filters.slice(0, i),
+            ...prevState.filters.slice(i + 1),
+          ],
+        }),
+        () => console.log("filters >>>", this.state.filters)
+      );
     }
   }
 
@@ -93,20 +103,33 @@ class Overview extends React.Component {
   // filter reviews by rating, show characteristics, adding a question/review (XXXXL)
   // 39333 to 40343 (39346) 40125
 
-  render () {
+  render() {
     const characteristics = this.state.reviewsMetaData.characteristics;
 
     return (
       <Flex>
         <RatingsStyle>
-          <Ratings reviewsMetaData={this.state.reviewsMetaData} updateFilters={this.updateFilters} filters={this.state.filters} clearFilters={this.clearFilters}/>
+          <Ratings
+            reviewsMetaData={this.state.reviewsMetaData}
+            updateFilters={this.updateFilters}
+            filters={this.state.filters}
+            clearFilters={this.clearFilters}
+          />
         </RatingsStyle>
         <ReviewsStyle>
-          <Reviews reviewsData={this.state.reviewsData} reviewsMetaData={this.state.reviewsMetaData} getReviews={this.getReviews} pid={this.props.product_id}
-          updateReviews={this.updateReviews} name={this.state.name} filters={this.state.filters} characteristics={characteristics}/>
+          <Reviews
+            reviewsData={this.state.reviewsData}
+            reviewsMetaData={this.state.reviewsMetaData}
+            getReviews={this.getReviews}
+            pid={this.props.product_id}
+            updateReviews={this.updateReviews}
+            name={this.state.name}
+            filters={this.state.filters}
+            characteristics={characteristics}
+          />
         </ReviewsStyle>
       </Flex>
-    )
+    );
   }
 }
 
@@ -116,17 +139,14 @@ const Flex = styled.div`
   padding: 10px;
   gap: 5px;
   width: 95%;
-`
+`;
 
 const RatingsStyle = styled.div`
   padding-left: 20px;
   flex: 1 0 20%;
-`
+`;
 const ReviewsStyle = styled.div`
   flex: 0 1 80%;
-`
-
-
-
+`;
 
 export default Overview;
