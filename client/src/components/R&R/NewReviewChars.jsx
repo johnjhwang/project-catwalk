@@ -5,9 +5,7 @@ import styled from 'styled-components';
 class NewReviewChars extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
+    this.state = {};
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -15,48 +13,62 @@ class NewReviewChars extends React.Component {
     const name = e.target.name;
     const value = e.target.value;
 
-    console.log('e.target >>>>', name, value);
-    this.setState({ [name]: value }, () => console.log(`${name} in state is now: `, this.state[name]), this.props.processCharSelection(name, value));
+    this.setState(
+      { [name]: value },
+      () => console.log(`${name} in state is now: `, this.state[name]),
+      this.props.processCharSelection(name, value)
+    );
   }
 
-  render () {
-    let {characteristics} = this.props;
+  render() {
+    let { characteristics } = this.props;
 
-      return (
-        <BigBlock>
-          <LabelLabel>&nbsp; &nbsp;{characteristics}</LabelLabel>
-          <br/>
-          <Container onChange={this.handleChange}>
-            <RadioLabel><input type="radio" name={characteristics} value="1" /><span style={{ width: '8px', display: 'inline-block' }} />
+    return (
+      <BigBlock>
+        <LabelLabel>&nbsp; &nbsp;{characteristics}</LabelLabel>
+        <br />
+        <Container onChange={this.handleChange}>
+          <RadioLabel>
+            <input type='radio' name={characteristics} value='1' />
+            <span style={{ width: '8px', display: 'inline-block' }} />
             {characteristicLabels[characteristics][1]}
-            </RadioLabel>
-            <RadioLabel><input type="radio" name={characteristics} value="2" /><span style={{ width: '8px', display: 'inline-block' }} />
+          </RadioLabel>
+          <RadioLabel>
+            <input type='radio' name={characteristics} value='2' />
+            <span style={{ width: '8px', display: 'inline-block' }} />
             {characteristicLabels[characteristics][2]}
-            </RadioLabel>
-            <RadioLabel><input type="radio" name={characteristics} value="3" /><span style={{ width: '8px', display: 'inline-block' }} />
+          </RadioLabel>
+          <RadioLabel>
+            <input type='radio' name={characteristics} value='3' />
+            <span style={{ width: '8px', display: 'inline-block' }} />
             {characteristicLabels[characteristics][3]}
-            </RadioLabel>
-            <RadioLabel><input type="radio" name={characteristics} value="4" /><span style={{ width: '8px', display: 'inline-block' }} />
+          </RadioLabel>
+          <RadioLabel>
+            <input type='radio' name={characteristics} value='4' />
+            <span style={{ width: '8px', display: 'inline-block' }} />
             {characteristicLabels[characteristics][4]}
-            </RadioLabel>
-            <RadioLabel><input type="radio" name={characteristics} value="5" /><span style={{ width: '8px', display: 'inline-block' }} />
+          </RadioLabel>
+          <RadioLabel>
+            <input type='radio' name={characteristics} value='5' />
+            <span style={{ width: '8px', display: 'inline-block' }} />
             {characteristicLabels[characteristics][5]}
-            </RadioLabel>
-          </Container>
-        </BigBlock>)
+          </RadioLabel>
+        </Container>
+      </BigBlock>
+    );
   }
 }
 
 const BigBlock = styled.div`
-display: inline;
-`
+  display: inline;
+`;
 
 const Container = styled.div`
-display: grid;
-grid-template-columns: repeat(5, 1fr);
-grid-gap: 10px;
-padding:5px;
-font-size: 15px;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  padding: 5px;
+  font-size: 15px;
 `;
 
 const LabelLabel = styled.span`
@@ -67,8 +79,8 @@ const LabelLabel = styled.span`
 `;
 
 const RadioLabel = styled.label`
-font-size: 13px;
-`
+  font-size: 13px;
+`;
 
 const characteristicLabels = {
   Size: {
@@ -113,6 +125,6 @@ const characteristicLabels = {
     4: 'Runs slightly long',
     5: 'Runs long',
   },
-}
+};
 
 export default NewReviewChars;

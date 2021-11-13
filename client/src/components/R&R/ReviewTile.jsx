@@ -1,9 +1,9 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import styled from "styled-components";
-import handler from "../Shared/reviewhandler.js";
-import dateFormatter from "../Shared/dateformatter.js";
-import Stars from "../Shared/Stars.jsx";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import styled from 'styled-components';
+import handler from '../Shared/reviewhandler.js';
+import dateFormatter from '../Shared/dateformatter.js';
+import Stars from '../Shared/Stars.jsx';
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -17,16 +17,15 @@ class ReviewTile extends React.Component {
   handleClick = (e) => {
     let { review, updateReviews } = this.props;
 
-    let action = e.target.getAttribute("value");
-    console.log("action >>", action, "checker >>", this.state.checker);
+    let action = e.target.getAttribute('value');
 
-    if (action === "helpful" && this.state.checker === false) {
+    if (action === 'helpful' && this.state.checker === false) {
       this.setState({ checker: true });
       handler.update(review.review_id, action, (responseData) => {
         updateReviews();
       });
     }
-    if (action === "report" && this.state.reported === false) {
+    if (action === 'report' && this.state.reported === false) {
       this.setState({ reported: true });
       handler.update(review.review_id, action);
     }
@@ -41,7 +40,7 @@ class ReviewTile extends React.Component {
         <div>
           <Stars rating={review.rating} />
         </div>
-        <div style={{ float: "right", marginRight: "5px" }}>
+        <div style={{ float: 'right', marginRight: '5px' }}>
           {review.reviewer_name}, {dateFormatter(review.date)}
         </div>
         <h3>{review.summary}</h3>
@@ -51,10 +50,9 @@ class ReviewTile extends React.Component {
         <br />
         <span>Was this review helpful? </span>
         <span
-          value="helpful"
+          value='helpful'
           onClick={(e) => this.handleClick(e)}
-          style={{ textDecoration: "underline", cursor: "pointer" }}
-        >
+          style={{ textDecoration: 'underline', cursor: 'pointer' }}>
           Yes
         </span>
         <span> ({review.helpfulness}) | </span>
@@ -62,10 +60,9 @@ class ReviewTile extends React.Component {
           <span>Reported</span>
         ) : (
           <span
-            value="report"
+            value='report'
             onClick={(e) => this.handleClick(e)}
-            style={{ textDecoration: "underline", cursor: "pointer" }}
-          >
+            style={{ textDecoration: 'underline', cursor: 'pointer' }}>
             Report
           </span>
         )}

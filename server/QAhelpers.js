@@ -1,29 +1,29 @@
 // use this file or create your own helper js file in this folder
-const config = require('../config.js')
+const config = require('../config.js');
 const axios = require('axios');
 
 module.exports = {
-  getQuestion: function(product_id) {
+  getQuestion: function (product_id) {
     return axios({
       method: 'GET',
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-nyc/qa/questions?product_id=${product_id}`,
       headers: {
         'User-Agent': 'request',
-        'Authorization': `${config.API_KEY}`
-      }
-    })
+        Authorization: `${config.API_KEY}`,
+      },
+    });
   },
-  getAnswers: function(question_id) {
+  getAnswers: function (question_id) {
     return axios({
       method: 'GET',
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-nyc/qa/questions/${question_id}/answers`,
       headers: {
         'User-Agent': 'request',
-        'Authorization':`${config.API_KEY}`
-      }
-    })
+        Authorization: `${config.API_KEY}`,
+      },
+    });
   },
-  createQuestion: function(body, name, email, product_id) {
+  createQuestion: function (body, name, email, product_id) {
     return axios({
       method: 'POST',
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-nyc/qa/questions/`,
@@ -31,15 +31,15 @@ module.exports = {
         body,
         name: name,
         email: email,
-        product_id: product_id
+        product_id: product_id,
       },
       headers: {
         'User-Agent': 'request',
-        'Authorization':`${config.API_KEY}`
-      }
-    })
+        Authorization: `${config.API_KEY}`,
+      },
+    });
   },
-  createAnswer: function(question_id, body, name, email, photos) {
+  createAnswer: function (question_id, body, name, email, photos) {
     return axios({
       method: 'POST',
       url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-nyc/qa/questions/${question_id}/answers`,
@@ -47,13 +47,13 @@ module.exports = {
         question: body,
         name: name,
         email: email,
-        photos: photos
+        photos: photos,
       },
       headers: {
         'User-Agent': 'request',
-        'Authorization':`${config.API_KEY}`
-      }
-    })
+        Authorization: `${config.API_KEY}`,
+      },
+    });
   },
   // addToHelpfulness: function(product_id) {
   //   return axios({
@@ -65,4 +65,4 @@ module.exports = {
   //     }
   //   })
   // }
-}
+};

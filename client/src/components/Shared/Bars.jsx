@@ -1,8 +1,7 @@
 import React from 'react';
 
-const Bars = ({count, total}) => {
+const Bars = ({ count, total }) => {
   const percentage = count / total;
-
 
   const backgroundStyle = {
     width: '12%',
@@ -11,7 +10,7 @@ const Bars = ({count, total}) => {
     marginLeft: '0.5%',
     marginTop: '6px',
     position: 'absolute',
-  }
+  };
 
   const filledStyle = {
     backgroundColor: '#054308',
@@ -20,16 +19,14 @@ const Bars = ({count, total}) => {
     position: 'absolute',
     marginLeft: '0.5%',
     marginTop: '6px',
-  }
+  };
 
   return (
     <span>
       <span style={backgroundStyle}></span>
       <span style={filledStyle}></span>
     </span>
-  )
-}
-
-
+  );
+};
 
 export default Bars;

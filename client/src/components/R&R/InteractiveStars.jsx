@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 const Star = ({ marked, starId }) => {
   return (
-    <span value={starId} className="star" name="stars" role="button">
+    <span value={starId} className='star' name='stars' role='button'>
       {marked ? '\u2605' : '\u2606'}
     </span>
   );
@@ -16,13 +16,12 @@ const StarRating = ({ value, handleInputChange }) => {
   const [rating, setRating] = React.useState(parseInt(value) || 0);
   const [selection, setSelection] = React.useState(0);
 
-  const multiFunc = event => {
+  const multiFunc = (event) => {
     setRating(event.target.getAttribute('value'));
     handleInputChange(event);
+  };
 
-  }
-
-  const hoverOver = event => {
+  const hoverOver = (event) => {
     let val = 0;
     if (event && event.target && event.target.getAttribute('value'))
       val = event.target.getAttribute('value');
@@ -31,9 +30,8 @@ const StarRating = ({ value, handleInputChange }) => {
   return (
     <div
       onMouseOut={() => hoverOver(null)}
-      onClick={e => multiFunc(e)}
-      onMouseOver={hoverOver}
-    >
+      onClick={(e) => multiFunc(e)}
+      onMouseOver={hoverOver}>
       {Array.from({ length: 5 }, (v, i) => (
         <Star
           starId={i + 1}

@@ -1,11 +1,11 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import $ from "jquery";
-import axios from "axios";
-import styled from "styled-components";
-import handler from "../Shared/reviewhandler.js";
-import Reviews from "./Reviews.jsx";
-import Ratings from "./Ratings.jsx";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import axios from 'axios';
+import styled from 'styled-components';
+import handler from '../Shared/reviewhandler.js';
+import Reviews from './Reviews.jsx';
+import Ratings from './Ratings.jsx';
 
 class Overview extends React.Component {
   constructor(props) {
@@ -14,7 +14,7 @@ class Overview extends React.Component {
       product_id: this.props.product_id,
       reviewsData: {},
       reviewsMetaData: {},
-      name: "",
+      name: '',
       filters: [],
     };
     this.getReviews = this.getReviews.bind(this);
@@ -39,21 +39,15 @@ class Overview extends React.Component {
     }
   }
 
-  getReviews(sort = "relevant") {
+  getReviews(sort = 'relevant') {
     handler.get(this.state.product_id, sort, (responseData) => {
-      console.log("client responseData >>>>", responseData);
-      this.setState({ reviewsData: responseData }, () => {
-        console.log("this.state.reviewsData >>>", this.state.reviewsData);
-      });
+      this.setState({ reviewsData: responseData });
     });
   }
 
   getReviewsMeta() {
     handler.getMeta(this.state.product_id, (responseData) => {
-      console.log("client metaData >>>>", responseData);
-      this.setState({ reviewsMetaData: responseData }, () => {
-        console.log("reviewsMetaData in state >>>", this.state.reviewsMetaData);
-      });
+      this.setState({ reviewsMetaData: responseData });
     });
   }
 
@@ -66,34 +60,29 @@ class Overview extends React.Component {
     axios
       .get(`/products/${this.props.product_id}`)
       .then((responseData) => {
-        console.log("result", responseData.data.name);
         this.setState({
           name: responseData.data.name,
         });
       })
       .catch((err) => {
-        console.log("Error getting product name");
+        console.log('Error getting product name');
       });
   }
 
   updateFilters(e) {
-    let clickedRating = e.target.getAttribute("value");
+    let clickedRating = e.target.getAttribute('value');
     let i = this.state.filters.indexOf(clickedRating);
     if (i === -1) {
-      this.setState(
-        (prevState) => ({ filters: [...prevState.filters, clickedRating] }),
-        () => console.log("filters >>>", this.state.filters)
-      );
+      this.setState((prevState) => ({
+        filters: [...prevState.filters, clickedRating],
+      }));
     } else {
-      this.setState(
-        (prevState) => ({
-          filters: [
-            ...prevState.filters.slice(0, i),
-            ...prevState.filters.slice(i + 1),
-          ],
-        }),
-        () => console.log("filters >>>", this.state.filters)
-      );
+      this.setState((prevState) => ({
+        filters: [
+          ...prevState.filters.slice(0, i),
+          ...prevState.filters.slice(i + 1),
+        ],
+      }));
     }
   }
 

@@ -1,13 +1,13 @@
-import React from "react";
-import ReactDOM from "react-dom";
-import $ from "jquery";
-import axios from "axios";
-import styled from "styled-components";
-import handler from "../Shared/reviewhandler.js";
-import ReviewsSort from "./ReviewsSort.jsx";
-import ReviewList from "./ReviewList.jsx";
-import MoreReviews from "./MoreReviews.jsx";
-import NewReview from "./NewReview.jsx";
+import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
+import axios from 'axios';
+import styled from 'styled-components';
+import handler from '../Shared/reviewhandler.js';
+import ReviewsSort from './ReviewsSort.jsx';
+import ReviewList from './ReviewList.jsx';
+import MoreReviews from './MoreReviews.jsx';
+import NewReview from './NewReview.jsx';
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -44,15 +44,12 @@ class Reviews extends React.Component {
   applyFilters() {
     let result = [];
     if (this.props.filters.length > 0) {
-      console.log("reviewdata >>>>", this.props.reviewsData);
       this.props.reviewsData.results.forEach((review) => {
         if (this.props.filters.indexOf(JSON.stringify(review.rating)) !== -1) {
           result.push(review);
         }
       });
-      this.setState({ reviews: result }, () =>
-        console.log("reviewsdata is now:", this.state.reviews)
-      );
+      this.setState({ reviews: result });
     } else {
       this.setState({ reviews: this.props.reviewsData.results, visible: 2 });
     }
